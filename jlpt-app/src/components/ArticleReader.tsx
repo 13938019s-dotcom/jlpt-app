@@ -4,6 +4,7 @@ import { LevelBadge } from './LevelBadge';
 import { VocabularyPanel } from './VocabularyPanel';
 import { GrammarPanel } from './GrammarPanel';
 import { QuizPanel } from './QuizPanel';
+import { useSpeech } from '../hooks/useSpeech';
 
 type Tab = 'article' | 'vocabulary' | 'grammar' | 'quiz';
 
@@ -16,6 +17,7 @@ interface Props {
 
 export function ArticleReader({ article, isCompleted, onComplete, onBack }: Props) {
   const [tab, setTab] = useState<Tab>('article');
+  const { speak, stop, speaking } = useSpeech();
 
   const tabs: { key: Tab; label: string; color: string }[] = [
     { key: 'article', label: '文章', color: 'text-gray-700' },
@@ -72,16 +74,32 @@ export function ArticleReader({ article, isCompleted, onComplete, onBack }: Prop
             <p className="text-gray-800 leading-[2.2] text-base tracking-wide whitespace-pre-wrap">
               {article.content}
             </p>
-            {!isCompleted && (
-              <div className="mt-6 pt-5 border-t border-gray-100 flex justify-end">
+            <div className="mt-6 pt-5 border-t border-gray-100 flex items-center justify-between">
+              <button
+                onClick={() => speaking ? stop() : speak(article.content)}
+                className={`flex items-center gap-2 px-4 py-2 rounded-xl font-medium text-sm transition-colors ${
+                  speaking
+                    ? 'bg-red-100 text-red-600 hover:bg-red-200'
+                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                }`}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4">
+                  {speaking
+                    ? <path fillRule="evenodd" d="M4.5 10a5.5 5.5 0 1 1 11 0 5.5 5.5 0 0 1-11 0Zm4-2.25a.75.75 0 0 0-.75.75v3a.75.75 0 0 0 1.5 0v-3a.75.75 0 0 0-.75-.75Zm2.5 0a.75.75 0 0 0-.75.75v3a.75.75 0 0 0 1.5 0v-3a.75.75 0 0 0-.75-.75Z" clipRule="evenodd" />
+                    : <path d="M10 3.75a.75.75 0 0 0-1.264-.546L4.703 7H3.167a.75.75 0 0 0-.7.48A6.985 6.985 0 0 0 2 10c0 .887.165 1.737.468 2.52.111.29.39.48.7.48h1.535l4.033 3.796A.75.75 0 0 0 10 16.25V3.75ZM15.95 5.05a.75.75 0 0 0-1.06 1.061 5.5 5.5 0 0 1 0 7.778.75.75 0 0 0 1.06 1.06 7 7 0 0 0 0-9.899Z" />
+                  }
+                </svg>
+                {speaking ? '停止朗讀' : '朗讀文章'}
+              </button>
+              {!isCompleted && (
                 <button
                   onClick={() => setTab('vocabulary')}
                   className="px-5 py-2.5 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition-colors"
                 >
                   開始學習單字 →
                 </button>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         )}
         {tab === 'vocabulary' && (
