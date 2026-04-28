@@ -1,9 +1,7 @@
 import type { Article, JLPTLevel } from '../types';
 
-const SERVER_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:3001';
-
 export async function generateArticle(level: JLPTLevel): Promise<Article> {
-  const res = await fetch(`${SERVER_URL}/api/generate-article`, {
+  const res = await fetch('/api/generate-article', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ level }),
