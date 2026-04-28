@@ -168,6 +168,9 @@ export default function App() {
         </section>
       </main>
 
+      <footer className="text-center py-6 text-xs text-gray-300">
+        Made by zoenozomi
+      </footer>
     </div>
   );
 }
