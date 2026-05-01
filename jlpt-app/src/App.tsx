@@ -6,10 +6,13 @@ import { generateArticle } from './services/generateArticle';
 import { LevelSelector } from './components/LevelSelector';
 import { ArticleCard } from './components/ArticleCard';
 import { ArticleReader } from './components/ArticleReader';
+import { VerbPage } from './components/VerbPage';
 
+type AppTab = 'reading' | 'verbs';
 const LEVELS: JLPTLevel[] = ['N5', 'N4', 'N3', 'N2', 'N1'];
 
 export default function App() {
+  const [tab, setTab] = useState<AppTab>('reading');
   const [selectedLevel, setSelectedLevel] = useState<JLPTLevel>('N5');
   const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
   const [aiArticles, setAiArticles] = useState<Article[]>([]);
@@ -69,19 +72,42 @@ export default function App() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-white border-b border-gray-100 shadow-sm">
-        <div className="max-w-4xl mx-auto px-4 py-5 flex items-center gap-3">
-          <div className="w-10 h-10 bg-red-500 rounded-xl flex items-center justify-center text-white font-black text-lg">
+      <header className="bg-white border-b border-gray-100 shadow-sm sticky top-0 z-10">
+        <div className="max-w-4xl mx-auto px-4 py-4 flex items-center gap-3">
+          <div className="w-10 h-10 bg-red-500 rounded-xl flex items-center justify-center text-white font-black text-lg shrink-0">
             N
           </div>
-          <div>
-            <h1 className="text-xl font-black text-gray-900">JLPT 分級閱讀</h1>
-            <p className="text-xs text-gray-400">日語能力試驗・閱讀學習</p>
+          <div className="flex-1 min-w-0">
+            <h1 className="text-xl font-black text-gray-900">JLPT 日語學習</h1>
+            <p className="text-xs text-gray-400">日語能力試驗・閱讀＆動詞変化</p>
+          </div>
+          {/* Tab switcher */}
+          <div className="flex bg-gray-100 rounded-xl p-1 gap-1">
+            <button
+              onClick={() => setTab('reading')}
+              className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors ${
+                tab === 'reading' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              閱讀
+            </button>
+            <button
+              onClick={() => setTab('verbs')}
+              className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors ${
+                tab === 'verbs' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              動詞変化
+            </button>
           </div>
         </div>
       </header>
 
       <main className="max-w-4xl mx-auto px-4 py-8">
+        {tab === 'verbs' ? (
+          <VerbPage />
+        ) : (
+        <>
         {/* Level Selector */}
         <section className="mb-8">
           <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">
@@ -166,6 +192,8 @@ export default function App() {
             </button>
           </div>
         </section>
+        </>
+        )}
       </main>
 
       <footer className="text-center py-6 text-xs text-gray-300">
