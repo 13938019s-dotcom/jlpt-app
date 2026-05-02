@@ -37,3 +37,17 @@ export interface LevelProgress {
 }
 
 export type Progress = Record<JLPTLevel, LevelProgress>;
+
+export interface SavedVocabulary extends Vocabulary {
+  id: string;
+  savedAt: string;
+  articleTitle: string;
+  level: JLPTLevel;
+}
+
+export interface SavedGrammar extends GrammarPoint {
+  id: string;
+  savedAt: string;
+  articleTitle: string;
+  level: JLPTLevel;
+}

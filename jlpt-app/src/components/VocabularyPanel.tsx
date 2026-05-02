@@ -17,31 +17,52 @@ function SpeakButton({ text, small = false }: { text: string; small?: boolean })
   );
 }
 
-export function VocabularyPanel({ vocabulary }: { vocabulary: Vocabulary[] }) {
+interface Props {
+  vocabulary: Vocabulary[];
+  onSave?: (vocab: Vocabulary) => void;
+  isSaved?: (kanji: string) => boolean;
+}
+
+export function VocabularyPanel({ vocabulary, onSave, isSaved }: Props) {
   return (
     <div>
       <h2 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
         <span className="bg-blue-100 text-blue-700 rounded-lg px-3 py-1 text-sm">重點單字</span>
         <span className="text-sm text-gray-400 font-normal">{vocabulary.length} 個</span>
+        {onSave && <span className="text-xs text-gray-300 font-normal ml-1">點 ★ 儲存到單字庫</span>}
       </h2>
       <div className="grid gap-3 sm:grid-cols-2">
-        {vocabulary.map((v, i) => (
-          <div key={i} className="bg-white rounded-xl border border-gray-100 p-4 shadow-sm">
-            <div className="flex items-center gap-2 mb-1">
-              <span className="text-xl font-bold text-gray-800">{v.kanji}</span>
-              <span className="text-sm text-gray-400">【{v.furigana}】</span>
-              <SpeakButton text={v.kanji} />
-            </div>
-            <p className="text-blue-600 font-medium text-sm mb-2">{v.meaning}</p>
-            <div className="bg-gray-50 rounded-lg p-2">
-              <div className="flex items-start gap-1">
-                <p className="text-sm text-gray-700 flex-1">{v.example}</p>
-                <SpeakButton text={v.example} small />
+        {vocabulary.map((v, i) => {
+          const saved = isSaved?.(v.kanji) ?? false;
+          return (
+            <div key={i} className="bg-white rounded-xl border border-gray-100 p-4 shadow-sm">
+              <div className="flex items-center gap-2 mb-1">
+                <span className="text-xl font-bold text-gray-800">{v.kanji}</span>
+                <span className="text-sm text-gray-400">【{v.furigana}】</span>
+                <SpeakButton text={v.kanji} />
+                {onSave && (
+                  <button
+                    onClick={() => onSave(v)}
+                    title={saved ? '已儲存到單字庫' : '儲存到單字庫'}
+                    className={`ml-auto text-xl leading-none transition-colors ${
+                      saved ? 'text-yellow-400' : 'text-gray-200 hover:text-yellow-300'
+                    }`}
+                  >
+                    ★
+                  </button>
+                )}
               </div>
-              <p className="text-xs text-gray-400 mt-1">{v.exampleTranslation}</p>
+              <p className="text-blue-600 font-medium text-sm mb-2">{v.meaning}</p>
+              <div className="bg-gray-50 rounded-lg p-2">
+                <div className="flex items-start gap-1">
+                  <p className="text-sm text-gray-700 flex-1">{v.example}</p>
+                  <SpeakButton text={v.example} small />
+                </div>
+                <p className="text-xs text-gray-400 mt-1">{v.exampleTranslation}</p>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

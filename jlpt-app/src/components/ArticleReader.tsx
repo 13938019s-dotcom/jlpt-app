@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { Article } from '../types';
+import type { Article, Vocabulary, GrammarPoint, JLPTLevel } from '../types';
 import { LevelBadge } from './LevelBadge';
 import { VocabularyPanel } from './VocabularyPanel';
 import { GrammarPanel } from './GrammarPanel';
@@ -13,17 +13,40 @@ interface Props {
   isCompleted: boolean;
   onComplete: () => void;
   onBack: () => void;
+  onSaveVocab?: (vocab: Vocabulary, articleTitle: string, level: JLPTLevel) => void;
+  onSaveGrammar?: (grammar: GrammarPoint, articleTitle: string, level: JLPTLevel) => void;
+  isVocabSaved?: (kanji: string, articleTitle: string) => boolean;
+  isGrammarSaved?: (pattern: string, articleTitle: string) => boolean;
 }
 
-export function ArticleReader({ article, isCompleted, onComplete, onBack }: Props) {
+export function ArticleReader({
+  article, isCompleted, onComplete, onBack,
+  onSaveVocab, onSaveGrammar, isVocabSaved, isGrammarSaved,
+}: Props) {
   const [tab, setTab] = useState<Tab>('article');
   const { speak, stop, speaking } = useSpeech();
 
+  const handleSaveVocab = onSaveVocab
+    ? (v: Vocabulary) => onSaveVocab(v, article.title, article.level)
+    : undefined;
+
+  const handleSaveGrammar = onSaveGrammar
+    ? (g: GrammarPoint) => onSaveGrammar(g, article.title, article.level)
+    : undefined;
+
+  const checkVocabSaved = isVocabSaved
+    ? (kanji: string) => isVocabSaved(kanji, article.title)
+    : undefined;
+
+  const checkGrammarSaved = isGrammarSaved
+    ? (pattern: string) => isGrammarSaved(pattern, article.title)
+    : undefined;
+
   const tabs: { key: Tab; label: string; color: string }[] = [
-    { key: 'article', label: '文章', color: 'text-gray-700' },
+    { key: 'article',    label: '文章', color: 'text-gray-700' },
     { key: 'vocabulary', label: '單字', color: 'text-blue-600' },
-    { key: 'grammar', label: '文法', color: 'text-orange-600' },
-    { key: 'quiz', label: '測驗', color: 'text-purple-600' },
+    { key: 'grammar',    label: '文法', color: 'text-orange-600' },
+    { key: 'quiz',       label: '測驗', color: 'text-purple-600' },
   ];
 
   return (
@@ -104,7 +127,11 @@ export function ArticleReader({ article, isCompleted, onComplete, onBack }: Prop
         )}
         {tab === 'vocabulary' && (
           <div>
-            <VocabularyPanel vocabulary={article.vocabulary} />
+            <VocabularyPanel
+              vocabulary={article.vocabulary}
+              onSave={handleSaveVocab}
+              isSaved={checkVocabSaved}
+            />
             <div className="mt-6 flex justify-end">
               <button
                 onClick={() => setTab('grammar')}
@@ -117,7 +144,11 @@ export function ArticleReader({ article, isCompleted, onComplete, onBack }: Prop
         )}
         {tab === 'grammar' && (
           <div>
-            <GrammarPanel grammar={article.grammar} />
+            <GrammarPanel
+              grammar={article.grammar}
+              onSave={handleSaveGrammar}
+              isSaved={checkGrammarSaved}
+            />
             <div className="mt-6 flex justify-end">
               <button
                 onClick={() => setTab('quiz')}
