@@ -275,68 +275,115 @@ function QuizView({ quizVerbs, onBack }: { quizVerbs: Verb[]; onBack: () => void
 
 // ─── Conjugation Guide ───────────────────────────────────────────────────────
 
+const OVERVIEW_ROWS: { form: string; formName: FormName; godan: string; ichidan: string; suru: string; kuru: string }[] = [
+  { form: 'て形',  formName: 'te',     godan: '書いて',   ichidan: '食べて',   suru: 'して',   kuru: 'きて'   },
+  { form: 'た形',  formName: 'ta',     godan: '書いた',   ichidan: '食べた',   suru: 'した',   kuru: 'きた'   },
+  { form: 'ない形', formName: 'nai',   godan: '書かない', ichidan: '食べない', suru: 'しない', kuru: 'こない' },
+  { form: 'ます形', formName: 'masu',  godan: '書きます', ichidan: '食べます', suru: 'します', kuru: 'きます' },
+  { form: 'ば形',  formName: 'ba',     godan: '書けば',   ichidan: '食べれば', suru: 'すれば', kuru: 'くれば' },
+  { form: '命令形', formName: 'meirei', godan: '書け',    ichidan: '食べろ',   suru: 'しろ',   kuru: 'こい'   },
+  { form: '意志形', formName: 'ishi',  godan: '書こう',   ichidan: '食べよう', suru: 'しよう', kuru: 'こよう' },
+];
+
 interface GodanRow { ending: string; change: string; example: string; result: string; }
 interface GuideSection {
+  formName: FormName;
+  segmentHint?: string;
   ichidanRule: string;
   ichidanExample: { kanji: string; result: string };
   godanRows: GodanRow[];
-  godanNote?: string;
+  mnemonic?: string[];
+  exceptions?: { label: string; correct: string; wrong?: string; note: string }[];
+  usageExamples?: { jp: string; zh: string }[];
   irregularResults: { verb: string; meaning: string; result: string }[];
 }
 
-const GUIDE: Record<FormName, GuideSection> = {
-  te: {
-    ichidanRule: '去掉「る」，加「て」',
+const GUIDE: GuideSection[] = [
+  {
+    formName: 'te',
+    ichidanRule: '去掉「る」，直接加「て」',
     ichidanExample: { kanji: '食べる', result: '食べて' },
     godanRows: [
-      { ending: 'う', change: '→ って', example: '買う', result: '買って' },
-      { ending: 'く', change: '→ いて', example: '書く', result: '書いて' },
-      { ending: 'ぐ', change: '→ いで', example: '泳ぐ', result: '泳いで' },
-      { ending: 'す', change: '→ して', example: '話す', result: '話して' },
-      { ending: 'つ', change: '→ って', example: '待つ', result: '待って' },
-      { ending: 'ぬ', change: '→ んで', example: '死ぬ', result: '死んで' },
-      { ending: 'ぶ', change: '→ んで', example: '遊ぶ', result: '遊んで' },
-      { ending: 'む', change: '→ んで', example: '飲む', result: '飲んで' },
-      { ending: 'る', change: '→ って', example: '帰る', result: '帰って' },
+      { ending: 'う・つ・る', change: '→ って（促音便）', example: '買う・待つ・帰る', result: '買って・待って・帰って' },
+      { ending: 'む・ぶ・ぬ', change: '→ んで（鼻音便）', example: '飲む・遊ぶ・死ぬ', result: '飲んで・遊んで・死んで' },
+      { ending: 'く',         change: '→ いて（い音便）', example: '書く',             result: '書いて' },
+      { ending: 'ぐ',         change: '→ いで（い音便）', example: '泳ぐ',             result: '泳いで' },
+      { ending: 'す',         change: '→ して',           example: '話す',             result: '話して' },
     ],
-    godanNote: '※ 行く（いく）例外：行って（非行いて）',
-    irregularResults: [{ verb: 'する', meaning: '做', result: 'して' }, { verb: 'くる', meaning: '來', result: 'きて' }],
+    mnemonic: [
+      'う・つ・る　→　って（促音）',
+      'む・ぶ・ぬ　→　んで（鼻音）',
+      'く　→　いて　／　ぐ　→　いで',
+      'す　→　して',
+    ],
+    exceptions: [
+      { label: '行く（いく）', correct: '行って', wrong: '行いて', note: '字尾是「く」，照規則應為「いて」，但「行く」例外，必須背起來！' },
+    ],
+    usageExamples: [
+      { jp: 'ちょっと待ってください。', zh: '請稍等一下。（待つ→待って＋ください）' },
+      { jp: '今、ご飯を食べています。', zh: '我現在正在吃飯。（食べる→食べて＋いる）' },
+    ],
+    irregularResults: [
+      { verb: 'する', meaning: '做', result: 'して' },
+      { verb: 'くる', meaning: '來', result: 'きて' },
+    ],
   },
-  ta: {
+  {
+    formName: 'ta',
+    segmentHint: 'て形と完全同じ！「て→た」「で→だ」に換えるだけ',
     ichidanRule: '去掉「る」，加「た」',
     ichidanExample: { kanji: '食べる', result: '食べた' },
     godanRows: [
-      { ending: 'う', change: '→ った', example: '買う', result: '買った' },
-      { ending: 'く', change: '→ いた', example: '書く', result: '書いた' },
-      { ending: 'ぐ', change: '→ いだ', example: '泳ぐ', result: '泳いだ' },
-      { ending: 'す', change: '→ した', example: '話す', result: '話した' },
-      { ending: 'つ', change: '→ った', example: '待つ', result: '待った' },
-      { ending: 'ぬ', change: '→ んだ', example: '死ぬ', result: '死んだ' },
-      { ending: 'ぶ', change: '→ んだ', example: '遊ぶ', result: '遊んだ' },
-      { ending: 'む', change: '→ んだ', example: '飲む', result: '飲んだ' },
-      { ending: 'る', change: '→ った', example: '帰る', result: '帰った' },
+      { ending: 'う・つ・る', change: '→ った', example: '買う・待つ・帰る', result: '買った・待った・帰った' },
+      { ending: 'む・ぶ・ぬ', change: '→ んだ', example: '飲む・遊ぶ・死ぬ', result: '飲んだ・遊んだ・死んだ' },
+      { ending: 'く',         change: '→ いた', example: '書く',             result: '書いた' },
+      { ending: 'ぐ',         change: '→ いだ', example: '泳ぐ',             result: '泳いだ' },
+      { ending: 'す',         change: '→ した', example: '話す',             result: '話した' },
     ],
-    godanNote: '※ 行く（いく）例外：行った（非行いた）。た形與て形模式完全相同。',
-    irregularResults: [{ verb: 'する', meaning: '做', result: 'した' }, { verb: 'くる', meaning: '來', result: 'きた' }],
+    exceptions: [
+      { label: '行く（いく）', correct: '行った', wrong: '行いた', note: '同て形例外：行って→行った，記住成對即可。' },
+    ],
+    usageExamples: [
+      { jp: '昨日、映画を見た。', zh: '昨天看了電影。（見る→見た）' },
+      { jp: '日本に行ったことがありますか？', zh: '你曾經去過日本嗎？（行く→行った＋ことがある）' },
+    ],
+    irregularResults: [
+      { verb: 'する', meaning: '做', result: 'した' },
+      { verb: 'くる', meaning: '來', result: 'きた' },
+    ],
   },
-  nai: {
+  {
+    formName: 'nai',
+    segmentHint: '五段動詞：語尾變「あ段」音，再加「ない」',
     ichidanRule: '去掉「る」，加「ない」',
     ichidanExample: { kanji: '食べる', result: '食べない' },
     godanRows: [
-      { ending: 'う', change: 'わ＋ない', example: '買う', result: '買わない' },
-      { ending: 'く', change: 'か＋ない', example: '書く', result: '書かない' },
-      { ending: 'ぐ', change: 'が＋ない', example: '泳ぐ', result: '泳がない' },
-      { ending: 'す', change: 'さ＋ない', example: '話す', result: '話さない' },
-      { ending: 'つ', change: 'た＋ない', example: '待つ', result: '待たない' },
-      { ending: 'ぬ', change: 'な＋ない', example: '死ぬ', result: '死なない' },
-      { ending: 'ぶ', change: 'ば＋ない', example: '遊ぶ', result: '遊ばない' },
-      { ending: 'む', change: 'ま＋ない', example: '飲む', result: '飲まない' },
-      { ending: 'る', change: 'ら＋ない', example: '帰る', result: '帰らない' },
+      { ending: 'う', change: 'わ＋ない ⚠️', example: '買う・会う', result: '買わない・会わない' },
+      { ending: 'く', change: 'か＋ない',     example: '書く',       result: '書かない' },
+      { ending: 'ぐ', change: 'が＋ない',     example: '泳ぐ',       result: '泳がない' },
+      { ending: 'す', change: 'さ＋ない',     example: '話す',       result: '話さない' },
+      { ending: 'つ', change: 'た＋ない',     example: '待つ',       result: '待たない' },
+      { ending: 'ぬ', change: 'な＋ない',     example: '死ぬ',       result: '死なない' },
+      { ending: 'ぶ', change: 'ば＋ない',     example: '遊ぶ',       result: '遊ばない' },
+      { ending: 'む', change: 'ま＋ない',     example: '飲む',       result: '飲まない' },
+      { ending: 'る', change: 'ら＋ない',     example: '帰る',       result: '帰らない' },
     ],
-    godanNote: '※「う」的否定幹是「わ」而非「う」，為五段動詞唯一例外。',
-    irregularResults: [{ verb: 'する', meaning: '做', result: 'しない' }, { verb: 'くる', meaning: '來', result: 'こない' }],
+    exceptions: [
+      { label: '「う」結尾 → わない', correct: '買わない', wrong: '買あない', note: '「う」的あ段音是「わ」而非「あ」。う・あ・う・え・お 的あ段是「わ」行！' },
+      { label: 'ある（有）→ ない', correct: 'ない', wrong: 'あらない', note: '最特殊！「ある」的否定直接是「ない（沒有）」，完全不規則，一定要背！' },
+    ],
+    usageExamples: [
+      { jp: 'ここで写真を撮らないでください。', zh: '請不要在這裡拍照。（取る→取らない＋でください）' },
+      { jp: 'まだ宿題をしていない。', zh: '功課還沒做。（する→していない）' },
+    ],
+    irregularResults: [
+      { verb: 'する', meaning: '做', result: 'しない' },
+      { verb: 'くる', meaning: '來', result: 'こない（注意：發音從くる→こない！）' },
+    ],
   },
-  masu: {
+  {
+    formName: 'masu',
+    segmentHint: '五段動詞：語尾變「い段」音，再加「ます」',
     ichidanRule: '去掉「る」，加「ます」',
     ichidanExample: { kanji: '食べる', result: '食べます' },
     godanRows: [
@@ -350,10 +397,19 @@ const GUIDE: Record<FormName, GuideSection> = {
       { ending: 'む', change: 'み＋ます', example: '飲む', result: '飲みます' },
       { ending: 'る', change: 'り＋ます', example: '帰る', result: '帰ります' },
     ],
-    irregularResults: [{ verb: 'する', meaning: '做', result: 'します' }, { verb: 'くる', meaning: '來', result: 'きます' }],
+    usageExamples: [
+      { jp: '毎日、日本語を勉強します。', zh: '我每天學日文。（する→します）' },
+      { jp: 'すみません、少し待ちます。', zh: '不好意思，請稍等。（待つ→待ちます）' },
+    ],
+    irregularResults: [
+      { verb: 'する', meaning: '做', result: 'します' },
+      { verb: 'くる', meaning: '來', result: 'きます' },
+    ],
   },
-  ba: {
-    ichidanRule: '去掉「る」，加「れば」',
+  {
+    formName: 'ba',
+    segmentHint: '五段動詞：語尾變「え段」音，再加「ば」',
+    ichidanRule: '去掉「る」，加「れば」（注意一段比五段多一個「れ」！）',
     ichidanExample: { kanji: '食べる', result: '食べれば' },
     godanRows: [
       { ending: 'う', change: 'え＋ば', example: '買う', result: '買えば' },
@@ -366,10 +422,19 @@ const GUIDE: Record<FormName, GuideSection> = {
       { ending: 'む', change: 'め＋ば', example: '飲む', result: '飲めば' },
       { ending: 'る', change: 'れ＋ば', example: '帰る', result: '帰れば' },
     ],
-    irregularResults: [{ verb: 'する', meaning: '做', result: 'すれば' }, { verb: 'くる', meaning: '來', result: 'くれば' }],
+    usageExamples: [
+      { jp: 'もっと練習すればよかった。', zh: '早知道多練習就好了。（すれば＋よかった）' },
+      { jp: '安ければ、買います。', zh: '如果便宜的話就買。（安い→安ければ）' },
+    ],
+    irregularResults: [
+      { verb: 'する', meaning: '做', result: 'すれば' },
+      { verb: 'くる', meaning: '來', result: 'くれば' },
+    ],
   },
-  meirei: {
-    ichidanRule: '去掉「る」，加「ろ」（強烈命令）',
+  {
+    formName: 'meirei',
+    segmentHint: '五段動詞：語尾直接改為「え段」音（和ば形一樣，但不加「ば」）',
+    ichidanRule: '去掉「る」，加「ろ」（語氣強烈！日常請求改用「〜てください」）',
     ichidanExample: { kanji: '食べる', result: '食べろ' },
     godanRows: [
       { ending: 'う', change: '→ え', example: '買う', result: '買え' },
@@ -382,10 +447,20 @@ const GUIDE: Record<FormName, GuideSection> = {
       { ending: 'む', change: '→ め', example: '飲む', result: '飲め' },
       { ending: 'る', change: '→ れ', example: '帰る', result: '帰れ' },
     ],
-    godanNote: '※ 命令形語尾直接變え行，不再加「ば」。',
-    irregularResults: [{ verb: 'する', meaning: '做', result: 'しろ' }, { verb: 'くる', meaning: '來', result: 'こい' }],
+    exceptions: [
+      { label: '日常禮貌說法', correct: '〜てください', note: '命令形語氣很強硬，日常對話通常改用「〜てください」。例：食べてください（請吃）而非食べろ。' },
+    ],
+    usageExamples: [
+      { jp: '早く来い！（くる→こい）', zh: '快點來！（こい 是 くる 的命令形，很特殊）' },
+    ],
+    irregularResults: [
+      { verb: 'する', meaning: '做', result: 'しろ' },
+      { verb: 'くる', meaning: '來', result: 'こい（特殊！非くれ）' },
+    ],
   },
-  ishi: {
+  {
+    formName: 'ishi',
+    segmentHint: '五段動詞：語尾變「お段」音，再加「う」',
     ichidanRule: '去掉「る」，加「よう」',
     ichidanExample: { kanji: '食べる', result: '食べよう' },
     godanRows: [
@@ -399,68 +474,195 @@ const GUIDE: Record<FormName, GuideSection> = {
       { ending: 'む', change: 'も＋う', example: '飲む', result: '飲もう' },
       { ending: 'る', change: 'ろ＋う', example: '帰る', result: '帰ろう' },
     ],
-    irregularResults: [{ verb: 'する', meaning: '做', result: 'しよう' }, { verb: 'くる', meaning: '來', result: 'こよう' }],
+    usageExamples: [
+      { jp: 'ちょっと休もう。', zh: '休息一下吧。（休む→休もう，邀請語氣）' },
+      { jp: '日本に行こうと思っています。', zh: '我打算要去日本。（行く→行こう＋と思っている）' },
+    ],
+    irregularResults: [
+      { verb: 'する', meaning: '做', result: 'しよう' },
+      { verb: 'くる', meaning: '來', result: 'こよう' },
+    ],
   },
-};
+];
 
 function ConjugationGuide() {
   return (
     <div className="space-y-5">
-      {/* Intro */}
+
+      {/* ── STEP 1: 三大類型 ── */}
       <div className="rounded-2xl bg-indigo-50 border border-indigo-100 p-4">
-        <h3 className="font-black text-indigo-800 text-base mb-3">日語動詞三大類型</h3>
+        <div className="text-xs font-bold text-indigo-500 uppercase tracking-wide mb-3">Step 1 — 先搞清楚動詞類型</div>
         <div className="space-y-2">
           {[
-            { dot: 'bg-green-500', label: '一段動詞（Ichidan）', desc: '字尾為「る」，去掉る後直接加語尾，最規則。' },
-            { dot: 'bg-blue-500',  label: '五段動詞（Godan）',   desc: '字尾為う・く・ぐ・す・つ・ぬ・ぶ・む・る，依行變化語尾。' },
-            { dot: 'bg-amber-500', label: '不規則動詞（Irregular）', desc: '只有「する」和「くる」兩個，需要死背。' },
+            {
+              dot: 'bg-green-500', badge: '最簡單 ✓', badgeColor: 'bg-green-100 text-green-700',
+              label: '一段動詞',
+              rule: '不管變哪種形，一律「去掉る，直接加語尾」。',
+              ex: '食べる・見る・起きる・寝る',
+            },
+            {
+              dot: 'bg-blue-500', badge: '依段變化', badgeColor: 'bg-blue-100 text-blue-700',
+              label: '五段動詞',
+              rule: '語尾在「あいうえお」五個段落之間移動，是「五段」名稱的由來。',
+              ex: '書く・飲む・話す・買う・帰る',
+            },
+            {
+              dot: 'bg-amber-500', badge: '只有兩個', badgeColor: 'bg-amber-100 text-amber-700',
+              label: '不規則動詞',
+              rule: '「する」和「くる」各自有獨特變化，只能死背。',
+              ex: 'する（做）・くる（來）',
+            },
           ].map(item => (
-            <div key={item.label} className="flex items-start gap-2">
-              <span className={`w-2 h-2 rounded-full mt-1.5 shrink-0 ${item.dot}`} />
-              <div className="text-sm">
-                <span className="font-bold text-gray-800">{item.label}</span>
-                <span className="text-gray-500 ml-2 text-xs">{item.desc}</span>
+            <div key={item.label} className="flex items-start gap-2.5 bg-white rounded-xl p-3">
+              <span className={`w-2.5 h-2.5 rounded-full mt-1 shrink-0 ${item.dot}`} />
+              <div className="flex-1">
+                <div className="flex items-center gap-2 mb-0.5 flex-wrap">
+                  <span className="font-black text-gray-800 text-sm">{item.label}</span>
+                  <span className={`text-xs px-1.5 py-0.5 rounded-full font-semibold ${item.badgeColor}`}>{item.badge}</span>
+                </div>
+                <p className="text-xs text-gray-600 mb-0.5">{item.rule}</p>
+                <p className="text-xs text-gray-400">例：{item.ex}</p>
               </div>
             </div>
           ))}
         </div>
-        <p className="mt-3 text-xs text-indigo-600 bg-indigo-100 rounded-lg px-3 py-2">
-          ⚠️ 字尾為「る」的動詞不一定是一段動詞（如「帰る」是五段）。辨認方式：字尾前若為い段或え段假名，大多為一段；否則多為五段。
-        </p>
+        <div className="mt-3 bg-amber-50 border border-amber-100 rounded-xl p-3 text-xs text-amber-800">
+          <span className="font-bold">⚠️ 辨認「る」結尾的動詞：</span>
+          若「る」前一個假名屬於い段（き・み・い等）或え段（べ・ね・け等），大多是一段動詞。
+          但有例外（帰る・走る・切る是五段），不確定時以APP的分類標示為準。
+        </div>
       </div>
 
-      {/* One card per form */}
-      {FORMS.map(form => {
-        const guide = GUIDE[form.name];
+      {/* ── STEP 2: あいうえお五段系統 ── */}
+      <div className="rounded-2xl bg-blue-50 border border-blue-100 p-4">
+        <div className="text-xs font-bold text-blue-500 uppercase tracking-wide mb-2">Step 2 — 五段動詞的核心：あいうえお對應表</div>
+        <p className="text-xs text-blue-800 mb-3">五段動詞根據活用形不同，語尾音會移到對應的「段」，再接後綴。以「書く（かく）」為例：</p>
+        <div className="overflow-x-auto">
+          <table className="w-full text-xs">
+            <thead>
+              <tr className="border-b border-blue-200">
+                <th className="text-left pb-1.5 pr-2 font-bold text-blue-700">段</th>
+                <th className="text-center pb-1.5 px-1 font-bold text-rose-600">あ段</th>
+                <th className="text-center pb-1.5 px-1 font-bold text-emerald-600">い段</th>
+                <th className="text-center pb-1.5 px-1 font-bold text-gray-500">う段</th>
+                <th className="text-center pb-1.5 px-1 font-bold text-cyan-600">え段</th>
+                <th className="text-center pb-1.5 px-1 font-bold text-purple-600">お段</th>
+              </tr>
+            </thead>
+            <tbody className="text-center">
+              <tr className="border-b border-blue-100">
+                <td className="text-left py-1.5 pr-2 font-bold text-blue-700">用途</td>
+                <td className="px-1 py-1.5 text-rose-600 font-semibold">ない形</td>
+                <td className="px-1 py-1.5 text-emerald-600 font-semibold">ます形</td>
+                <td className="px-1 py-1.5 text-gray-500">辭書形</td>
+                <td className="px-1 py-1.5 text-cyan-600 font-semibold">ば形・命令形</td>
+                <td className="px-1 py-1.5 text-purple-600 font-semibold">意志形</td>
+              </tr>
+              <tr>
+                <td className="text-left py-1.5 pr-2 font-bold text-blue-700">書く</td>
+                <td className="px-1 py-1.5 font-bold text-gray-700">書か</td>
+                <td className="px-1 py-1.5 font-bold text-gray-700">書き</td>
+                <td className="px-1 py-1.5 font-bold text-gray-400">書く</td>
+                <td className="px-1 py-1.5 font-bold text-gray-700">書け</td>
+                <td className="px-1 py-1.5 font-bold text-gray-700">書こ</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p className="text-xs text-blue-700 mt-2">※ て形・た形はこの五段表から外れる「音便」という特別なルール。</p>
+      </div>
+
+      {/* ── STEP 3: 一覽表 ── */}
+      <div className="rounded-2xl border border-gray-200 overflow-hidden">
+        <div className="bg-gray-50 px-4 py-3 border-b border-gray-100">
+          <div className="text-xs font-bold text-gray-500 uppercase tracking-wide mb-0.5">Step 3 — 七種活用形一覽比對</div>
+          <p className="text-xs text-gray-400">以「書く（五段）」和「食べる（一段）」為代表</p>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="w-full text-xs">
+            <thead>
+              <tr className="bg-gray-50 border-b border-gray-100">
+                <th className="text-left px-3 py-2 font-semibold text-gray-400">活用形</th>
+                <th className="text-left px-3 py-2 font-semibold text-blue-600">五段 書く</th>
+                <th className="text-left px-3 py-2 font-semibold text-green-600">一段 食べる</th>
+                <th className="text-left px-3 py-2 font-semibold text-amber-600">する</th>
+                <th className="text-left px-3 py-2 font-semibold text-amber-600">くる</th>
+              </tr>
+            </thead>
+            <tbody>
+              {OVERVIEW_ROWS.map((row, i) => {
+                const form = FORMS.find(f => f.name === row.formName)!;
+                return (
+                  <tr key={row.form} className={`border-t border-gray-50 ${i % 2 === 0 ? 'bg-white' : 'bg-gray-50/40'}`}>
+                    <td className="px-3 py-2">
+                      <span className={`font-bold ${FORM_COLORS[form.color]}`}>{row.form}</span>
+                    </td>
+                    <td className="px-3 py-2 font-medium text-gray-700">{row.godan}</td>
+                    <td className="px-3 py-2 font-medium text-gray-700">{row.ichidan}</td>
+                    <td className="px-3 py-2 font-medium text-gray-700">{row.suru}</td>
+                    <td className="px-3 py-2 font-medium text-gray-700">{row.kuru}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* ── STEP 4: 逐一說明 ── */}
+      <div className="text-xs font-bold text-gray-400 uppercase tracking-wide px-1">Step 4 — 逐一學習各活用形規則</div>
+
+      {GUIDE.map(guide => {
+        const form = FORMS.find(f => f.name === guide.formName)!;
         const colorText = FORM_COLORS[form.color];
         const colorBg = FORM_BG[form.color];
         return (
-          <div key={form.name} className="rounded-2xl border border-gray-200 overflow-hidden">
+          <div key={guide.formName} className="rounded-2xl border border-gray-200 overflow-hidden">
+            {/* Header */}
             <div className={`px-4 py-3 border-b border-gray-100 ${colorBg}`}>
-              <div className="flex items-center gap-2">
-                <span className={`font-black text-lg ${colorText}`}>{form.label}</span>
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className={`font-black text-xl ${colorText}`}>{form.label}</span>
                 <span className="text-gray-500 text-sm">{form.labelJp}</span>
               </div>
-              <p className="text-xs text-gray-500 mt-0.5">{form.usage}</p>
+              <p className="text-xs text-gray-600 mt-1">{form.usage}</p>
+              {guide.segmentHint && (
+                <div className="mt-2 bg-white/70 rounded-lg px-2.5 py-1.5 text-xs text-blue-700 font-semibold">
+                  💡 {guide.segmentHint}
+                </div>
+              )}
             </div>
+
             <div className="p-4 space-y-4">
-              {/* Ichidan */}
+              {/* 一段 */}
               <div>
-                <div className="flex items-center gap-1.5 mb-2">
+                <div className="flex items-center gap-1.5 mb-1.5">
                   <span className="w-2 h-2 rounded-full bg-green-500" />
-                  <span className="text-xs font-bold text-green-700">一段動詞</span>
+                  <span className="text-xs font-bold text-green-700">一段動詞（最簡單）</span>
                 </div>
                 <div className="bg-green-50 rounded-xl px-3 py-2 text-sm flex items-center gap-2 flex-wrap">
-                  <span className="text-gray-600">{guide.ichidanRule}</span>
-                  <span className="text-gray-300">—</span>
+                  <span className="text-gray-700 font-medium">{guide.ichidanRule}</span>
+                  <span className="text-gray-300">|</span>
                   <span className="font-bold text-gray-800">{guide.ichidanExample.kanji}</span>
                   <span className="text-gray-400">→</span>
-                  <span className={`font-bold ${colorText}`}>{guide.ichidanExample.result}</span>
+                  <span className={`font-bold text-base ${colorText}`}>{guide.ichidanExample.result}</span>
                 </div>
               </div>
-              {/* Godan */}
+
+              {/* 口訣（て形） */}
+              {guide.mnemonic && (
+                <div className="bg-indigo-50 border border-indigo-100 rounded-xl p-3">
+                  <div className="text-xs font-bold text-indigo-600 mb-2">🎵 口訣——先背這個！</div>
+                  <div className="space-y-1">
+                    {guide.mnemonic.map((line, i) => (
+                      <div key={i} className="text-sm font-bold text-indigo-800 tracking-wide">{line}</div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* 五段 */}
               <div>
-                <div className="flex items-center gap-1.5 mb-2">
+                <div className="flex items-center gap-1.5 mb-1.5">
                   <span className="w-2 h-2 rounded-full bg-blue-500" />
                   <span className="text-xs font-bold text-blue-700">五段動詞</span>
                 </div>
@@ -468,37 +670,54 @@ function ConjugationGuide() {
                   <table className="w-full text-xs">
                     <thead>
                       <tr className="bg-gray-50 text-gray-400 border-b border-gray-100">
-                        <th className="text-left px-2 py-1.5 font-semibold w-8">字尾</th>
-                        <th className="text-left px-2 py-1.5 font-semibold">変化</th>
+                        <th className="text-left px-2 py-1.5 font-semibold">字尾</th>
+                        <th className="text-left px-2 py-1.5 font-semibold">変化方式</th>
                         <th className="text-left px-2 py-1.5 font-semibold">例詞</th>
-                        <th className="text-left px-2 py-1.5 font-semibold">結果</th>
+                        <th className="text-left px-2 py-1.5 font-semibold">活用後</th>
                       </tr>
                     </thead>
                     <tbody>
                       {guide.godanRows.map((row, i) => (
                         <tr key={row.ending} className={i % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}>
-                          <td className="px-2 py-1.5 font-bold text-blue-600">{row.ending}</td>
-                          <td className="px-2 py-1.5 text-gray-500">{row.change}</td>
-                          <td className="px-2 py-1.5 text-gray-700">{row.example}</td>
-                          <td className={`px-2 py-1.5 font-bold ${colorText}`}>{row.result}</td>
+                          <td className="px-2 py-2 font-bold text-blue-600 whitespace-nowrap">{row.ending}</td>
+                          <td className="px-2 py-2 text-gray-600">{row.change}</td>
+                          <td className="px-2 py-2 text-gray-700">{row.example}</td>
+                          <td className={`px-2 py-2 font-bold ${colorText}`}>{row.result}</td>
                         </tr>
                       ))}
                     </tbody>
                   </table>
                 </div>
-                {guide.godanNote && (
-                  <p className="text-xs text-amber-600 mt-1.5 pl-1">{guide.godanNote}</p>
-                )}
               </div>
-              {/* Irregular */}
-              <div>
-                <div className="flex items-center gap-1.5 mb-2">
-                  <span className="w-2 h-2 rounded-full bg-amber-500" />
-                  <span className="text-xs font-bold text-amber-700">不規則動詞</span>
+
+              {/* 例外 */}
+              {guide.exceptions && guide.exceptions.length > 0 && (
+                <div className="space-y-2">
+                  {guide.exceptions.map(ex => (
+                    <div key={ex.label} className="bg-amber-50 border border-amber-200 rounded-xl px-3 py-2.5">
+                      <div className="text-xs font-bold text-amber-700 mb-1">⚠️ 例外：{ex.label}</div>
+                      {ex.wrong && (
+                        <div className="text-xs mb-0.5">
+                          <span className="text-red-400 line-through mr-1">{ex.wrong}</span>
+                          <span className="text-gray-400 mr-1">✗　→　✓</span>
+                          <span className="font-bold text-amber-800">{ex.correct}</span>
+                        </div>
+                      )}
+                      <div className="text-xs text-amber-700">{ex.note}</div>
+                    </div>
+                  ))}
                 </div>
-                <div className="flex gap-3 flex-wrap">
+              )}
+
+              {/* 不規則 */}
+              <div>
+                <div className="flex items-center gap-1.5 mb-1.5">
+                  <span className="w-2 h-2 rounded-full bg-amber-500" />
+                  <span className="text-xs font-bold text-amber-700">不規則動詞（死背）</span>
+                </div>
+                <div className="flex gap-2 flex-wrap">
                   {guide.irregularResults.map(ir => (
-                    <div key={ir.verb} className="bg-amber-50 rounded-xl px-3 py-2 flex items-center gap-2 text-sm">
+                    <div key={ir.verb} className="bg-amber-50 rounded-xl px-3 py-2 flex items-center gap-1.5 text-sm flex-wrap">
                       <span className="font-bold text-gray-800">{ir.verb}</span>
                       <span className="text-gray-400 text-xs">（{ir.meaning}）</span>
                       <span className="text-gray-400">→</span>
@@ -507,6 +726,21 @@ function ConjugationGuide() {
                   ))}
                 </div>
               </div>
+
+              {/* 使用例句 */}
+              {guide.usageExamples && guide.usageExamples.length > 0 && (
+                <div className="bg-gray-50 rounded-xl px-3 py-2.5">
+                  <div className="text-xs font-bold text-gray-400 mb-2">使用例句</div>
+                  <div className="space-y-2">
+                    {guide.usageExamples.map(ex => (
+                      <div key={ex.jp}>
+                        <div className="text-sm font-medium text-gray-800">{ex.jp}</div>
+                        <div className="text-xs text-gray-400 mt-0.5">{ex.zh}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         );
