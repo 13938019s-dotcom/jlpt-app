@@ -24,6 +24,9 @@ export const presetArticles: Article[] = [
       { pattern: '～で（手段）', explanation: '表示動作的手段或方式，「用～、搭～」。', example: '電車で会社に行きます。', exampleTranslation: '搭電車去公司。' },
       { pattern: '～ています（狀態・習慣）', explanation: '表示正在進行的狀態，或反覆的習慣性動作。', example: '東京に住んでいます。', exampleTranslation: '（現在）住在東京。' },
       { pattern: '～が、～', explanation: '逆接助詞，表示「雖然～但是～」，前後形成轉折關係。', example: '家は小さいですが、とても好きです。', exampleTranslation: '家雖然小，但是非常喜歡。' },
+      { pattern: '～に行く', explanation: '表示「去～」，前接場所名詞，說明移動的目的地或方向。', example: '週末は家族みんなで公園に行きます。', exampleTranslation: '週末全家人一起去公園。' },
+      { pattern: '～で（場所）', explanation: '表示動作發生的地點，「在～（地方）做」。', example: '小学校で日本語を教えています。', exampleTranslation: '在小學教日語。' },
+      { pattern: '～と（列舉）', explanation: '用「と」連接名詞，完整列舉多個事物，「～和～」。', example: '日本語と英語を勉強しています。', exampleTranslation: '正在學習日語和英語。' },
     ],
     questions: [
       { question: '筆者の家族は何人ですか？', options: ['三人', '四人', '五人', '六人'], answerIndex: 1 },
@@ -54,6 +57,9 @@ export const presetArticles: Article[] = [
       { pattern: '～まで', explanation: '表示時間或空間的終點，「到～為止、到～地方」。', example: '学校まで自転車で二十分かかります。', exampleTranslation: '到學校騎腳踏車要二十分鐘。' },
       { pattern: '～ので', explanation: '表示原因或理由，語氣較客觀，「因為～所以…」。', example: '友達と一緒に食べるので、楽しいです。', exampleTranslation: '因為和朋友一起吃，所以很開心。' },
       { pattern: '～から始まる', explanation: '表示從某個時間點開始，「從～開始」。', example: '授業は九時から始まります。', exampleTranslation: '課程從九點開始。' },
+      { pattern: '～に（時間）', explanation: '表示動作發生的具體時間點，「在～時、～點時」。', example: '毎朝七時に起きます。', exampleTranslation: '每天早上七點起床。' },
+      { pattern: '～と一緒に', explanation: '表示「和～一起（做某事）」，說明共同行動的對象。', example: '友達と一緒に食べるので、とても楽しいです。', exampleTranslation: '因為和朋友一起吃，所以非常開心。' },
+      { pattern: '～かかる', explanation: '表示「花費（時間或費用）」，描述所需的時間或金錢。', example: '学校まで自転車で二十分かかります。', exampleTranslation: '騎腳踏車到學校要花二十分鐘。' },
     ],
     questions: [
       { question: '筆者は毎朝何時に起きますか？', options: ['六時', '七時', '八時', '九時'], answerIndex: 1 },
@@ -85,6 +91,9 @@ export const presetArticles: Article[] = [
       { pattern: '～てみる', explanation: '表示嘗試做某件事，「試著做～、嘗試一下～」。', example: 'サッカーをやってみましたが、難しかったです。', exampleTranslation: '嘗試踢了足球，但很難。' },
       { pattern: '～が、～（逆接）', explanation: '用「が」連接兩個相反的內容，「雖然～但是～」。', example: 'やってみましたが、あまり上手ではありませんでした。', exampleTranslation: '雖然嘗試了，但不太擅長。' },
       { pattern: '～になりたい', explanation: '表示希望成為某種狀態或職業，「想成為～」。', example: '将来は絵の先生になりたいです。', exampleTranslation: '將來想成為畫畫老師。' },
+      { pattern: '～が好きだ', explanation: '表示「喜歡～」，前接名詞或動詞「こと形」，說明喜好的對象。', example: 'ポップスやクラシックが好きです。', exampleTranslation: '喜歡流行音樂和古典音樂。' },
+      { pattern: '～後で', explanation: '表示「在～之後做…」，與「～てから」同義，但「後で」前接名詞或た形。', example: '学校から帰った後で音楽を聴きます。', exampleTranslation: '從學校回來之後聽音樂。' },
+      { pattern: '～てくれる', explanation: '表示「（別人）為自己做～」，說話者站在受益的立場，帶有感謝之意。', example: '先生は「絵が上手ですね」と言ってくれました。', exampleTranslation: '老師（對我）說了「畫很棒呢」。' },
     ],
     questions: [
       { question: '筆者の趣味は何ですか？', options: ['サッカーをすること', '絵を描くことと音楽を聴くこと', '先生になること', '公園で遊ぶこと'], answerIndex: 1 },
@@ -115,6 +124,9 @@ export const presetArticles: Article[] = [
       { pattern: '～に頼む', explanation: '表示「拜託～（做某事）」，請求他人協助。', example: 'お母さんに頼んで、お菓子を買ってもらいます。', exampleTranslation: '拜託媽媽，讓她幫我買零食。' },
       { pattern: '～てもらう', explanation: '表示「讓（別人）為自己做～」，著重在接受他人的行為。', example: 'お菓子を買ってもらいます。', exampleTranslation: '讓（媽媽）幫我買零食。' },
       { pattern: '～だけ', explanation: '表示「只有～、僅僅～」，限定範圍或數量。', example: 'お菓子を一つだけ買います。', exampleTranslation: '只買一個零食。' },
+      { pattern: '～や～など', explanation: '用「や」部分列舉代表性事物，「など」表示還有其他，「～和～等等」。', example: '野菜や肉、魚、果物などがあります。', exampleTranslation: '有蔬菜和肉、魚、水果等等。' },
+      { pattern: '～てくれる／～てくれない', explanation: '表示他人（為自己）做或不做某事，「くれない」帶有遺憾或抱怨的語氣。', example: 'お母さんはあまり買ってくれません。', exampleTranslation: '媽媽不太幫我買（零食）。' },
+      { pattern: '～ところで', explanation: '表示在某個特定位置或場合做某事，「在～的地方、在～時」。', example: 'レジのところでお金を払います。', exampleTranslation: '在收銀台那裡付錢。' },
     ],
     questions: [
       { question: '筆者はいつスーパーに行きますか？', options: ['毎日', '毎週土曜日', '毎週日曜日', '月に一度'], answerIndex: 1 },
@@ -147,6 +159,9 @@ export const presetArticles: Article[] = [
       { pattern: '～られる（受身）', explanation: '被動形式，表示「被～」或「受到～的動作」。', example: '花火が打ち上げられます。', exampleTranslation: '煙火被施放。' },
       { pattern: 'このような～', explanation: '指示詞，「像這樣的～、這種～」，用來指前文提到的事物。', example: 'このようなお祭りは大切です。', exampleTranslation: '這樣的祭典很重要。' },
       { pattern: '～ために', explanation: '表示目的，「為了～」。', example: '文化を守るために大切な行事です。', exampleTranslation: '是為了守護文化而重要的活動。' },
+      { pattern: 'その中でも', explanation: '表示「其中（尤其是）」，在眾多事物中特別點出某一項來強調。', example: 'その中でも、夏祭りは特に人気があります。', exampleTranslation: '其中，夏祭尤其受歡迎。' },
+      { pattern: '～て（動作連接）', explanation: '用「て形」連接多個動作，表示依序進行的行為，「先做～，再做…」。', example: '浴衣を着て、屋台で食べ物を買って食べます。', exampleTranslation: '穿上浴衣，在攤販買了食物吃。' },
+      { pattern: 'また～も', explanation: '「また」表示追加說明，「也」補充另一個相關事項，「另外，～也…」。', example: 'また、花火大会も夏の楽しみの一つです。', exampleTranslation: '另外，煙火大會也是夏天樂趣之一。' },
     ],
     questions: [
       { question: '夏祭りで着るものは何ですか？', options: ['着物', '浴衣', 'スーツ', '制服'], answerIndex: 1 },
@@ -177,6 +192,9 @@ export const presetArticles: Article[] = [
       { pattern: '～なければならない', explanation: '表示義務或必要，「必須～、不得不～」。', example: '敬語を使わなければなりませんでした。', exampleTranslation: '必須使用敬語說話。' },
       { pattern: '～ながら', explanation: '表示兩個動作同時進行，「一邊～一邊…」。', example: '先輩に教えてもらいながら上手になりました。', exampleTranslation: '一邊請前輩教一邊進步了。' },
       { pattern: '～と思います', explanation: '表示個人的想法或意見，「我認為～」。', example: 'この経験は役に立つと思います。', exampleTranslation: '我認為這個經驗會有用。' },
+      { pattern: '～から（起點）', explanation: '表示時間或場所的起點，「從～（開始）」。', example: '先月からコンビニでアルバイトを始めました。', exampleTranslation: '從上個月開始在便利商店打工。' },
+      { pattern: '～てくる（変化）', explanation: '表示某狀態從過去到現在逐漸發生變化，「漸漸變得～、已經開始～」。', example: '今は仕事に慣れてきました。', exampleTranslation: '現在已漸漸習慣工作了。' },
+      { pattern: '～を通じて', explanation: '表示「透過～、藉由～」，說明學習或獲得某事物的媒介或管道。', example: 'アルバイトを通じて、働くことの大変さを学びました。', exampleTranslation: '透過打工，學習到了工作的辛苦。' },
     ],
     questions: [
       { question: 'アルバイトはどこでしていますか？', options: ['レストラン', 'スーパー', 'コンビニ', '本屋'], answerIndex: 2 },
@@ -208,6 +226,9 @@ export const presetArticles: Article[] = [
       { pattern: '～始める', explanation: '接在動詞連用形後，表示「開始做～」，強調動作的開端。', example: '桜が咲き始めます。', exampleTranslation: '櫻花開始盛開。' },
       { pattern: '～に変わる', explanation: '表示「改變成～、變成～」，描述狀態的轉變。', example: '葉が赤や黄色に変わります。', exampleTranslation: '葉子變成紅色和黃色。' },
       { pattern: '～が行われる', explanation: '被動形，表示「進行～、舉辦～、被舉行」，常用於活動或事件。', example: '花火大会が行われます。', exampleTranslation: '舉辦煙火大會。' },
+      { pattern: 'それぞれ', explanation: '表示「各自、分別」，強調每一個個別的情況各有不同。', example: 'それぞれの季節に独自の魅力があります。', exampleTranslation: '每個季節各自有其獨特的魅力。' },
+      { pattern: '～を楽しみにする', explanation: '表示「期待～、盼望～」，對某件即將發生的事充滿期待。', example: '日本人は桜の花見をとても楽しみにしています。', exampleTranslation: '日本人非常期待賞櫻。' },
+      { pattern: '～習慣がある', explanation: '表示某種行為已成為固定的「習慣、慣例」，「有～的習慣」。', example: '公園でシートを広げて花見をする習慣があります。', exampleTranslation: '有在公園鋪墊子賞花的習慣。' },
     ],
     questions: [
       { question: '春になると何が起きますか？', options: ['雪が降る', '紅葉が美しくなる', '桜の花が咲き始める', '海水浴ができる'], answerIndex: 2 },
@@ -238,6 +259,9 @@ export const presetArticles: Article[] = [
       { pattern: '～ようにする', explanation: '表示刻意努力做到某事，「盡量～、努力做到～」。', example: '野菜を多く食べるようにしましょう。', exampleTranslation: '讓我們盡量多吃蔬菜吧。' },
       { pattern: '～でも（逆接）', explanation: '表示「即使～也、就算～也」，說明某情況下依然成立的事實。', example: '激しい運動でなくても効果があります。', exampleTranslation: '即使不是激烈的運動也有效果。' },
       { pattern: '～だけで', explanation: '表示「只要～就、僅僅～就」，強調條件很少或行動很簡單。', example: '少し意識するだけで健康的な生活に近づけます。', exampleTranslation: '只要稍微注意一下就能接近健康的生活。' },
+      { pattern: '～ためには', explanation: '表示「為了達到～（所需要的條件）」，強調目的與必要條件的關係。', example: '健康な体を保つためには、食事・運動・睡眠が必要です。', exampleTranslation: '為了維持健康的身體，需要飲食、運動和睡眠。' },
+      { pattern: '～たり～たりする', explanation: '不完全列舉，表示「有時做～、有時做…」，列舉多個動作中的幾個代表。', example: '趣味を楽しんだり、友達と話したりすることで気分転換ができます。', exampleTranslation: '透過享受興趣、和朋友聊天等方式可以轉換心情。' },
+      { pattern: 'なるべく', explanation: '副詞，表示「盡量、盡可能（做或不做某事）」，強調努力的態度。', example: '脂肪や糖分の多い食べ物はなるべく控えるようにしましょう。', exampleTranslation: '我們來盡量節制含有大量脂肪和糖分的食物吧。' },
     ],
     questions: [
       { question: '健康な体を保つために必要なことは何ですか？', options: ['薬を飲むこと', 'バランスの良い食事・適度な運動・十分な睡眠', '毎日激しい運動をすること', '病院に毎週行くこと'], answerIndex: 1 },
@@ -270,6 +294,9 @@ export const presetArticles: Article[] = [
       { pattern: '～ようにする', explanation: '表示努力使某事成為習慣或達成某狀態，「盡量～、努力做到～」。', example: '必要以上のものを買わないようにする。', exampleTranslation: '盡量不買超過需要的東西。' },
       { pattern: '～ことで', explanation: '表示手段或方法，「透過做～（可以達到某結果）」。', example: 'エコバッグを使うことで、ごみを減らせます。', exampleTranslation: '透過使用環保袋，可以減少垃圾。' },
       { pattern: '～につながる', explanation: '表示「與～相連、導致～、有助於～」，常用於正面結果。', example: '小さな行動が地球を守ることにつながります。', exampleTranslation: '小小的行動有助於保護地球。' },
+      { pattern: 'これら', explanation: '指示代詞，表示「這些（複數事物）」，指代前文已提到的多個事項。', example: 'これらの問題の原因の多くは、日常生活における行動と関わっています。', exampleTranslation: '這些問題的原因大多與日常生活中的行為有關。' },
+      { pattern: '～たり～たりする', explanation: '不完全列舉，表示「做～也做…（等行為）」，列舉多個行動中的代表性例子。', example: 'エコバッグを使ったり、ものを買わないようにしたりすることで減らせます。', exampleTranslation: '透過使用環保袋、不多買東西等行為可以減少（垃圾）。' },
+      { pattern: '～のだ（のです）', explanation: '帶有解釋或強調的語氣，表示「事情就是如此、正因為如此」，用來說明理由或結論。', example: '小さな行動の積み重ねが、地球の未来を守ることにつながるのです。', exampleTranslation: '小小行動的積累，就是能夠保護地球未來的關鍵。' },
     ],
     questions: [
       { question: 'プラスチックごみ問題はどのような影響がありますか？', options: ['大気汚染を引き起こす', '海洋生物に悪影響を与える', '地球温暖化を防ぐ', '農作物を傷める'], answerIndex: 1 },
@@ -300,6 +327,9 @@ export const presetArticles: Article[] = [
       { pattern: '～一方で', explanation: '表示「另一方面」，呈現對比或相反的情況。', example: 'メリットがある一方で、問題もあります。', exampleTranslation: '有優點，另一方面也有問題。' },
       { pattern: '必ずしも～とは限らない', explanation: '表示「不一定就是～」，用於反駁或修正過度的一般化陳述。', example: 'SNSの情報は必ずしも正確とは限らない。', exampleTranslation: 'SNS上的資訊不一定正確。' },
       { pattern: '～ではないでしょうか', explanation: '委婉的主張或建議，「不正是～嗎？」，帶有徵求同意的語氣。', example: 'オフラインの関係も大切にすることが重要ではないでしょうか。', exampleTranslation: '重視現實人際關係不正是很重要嗎？' },
+      { pattern: '～ようになる', explanation: '表示「變得能～、漸漸開始～」，描述能力或狀態的轉變過程。', example: '遠くの人と気軽に連絡が取れるようになりました。', exampleTranslation: '變得能夠輕鬆和遠方的人聯絡了。' },
+      { pattern: '～ことがある', explanation: '表示「有時候會～、偶爾會～」，描述並非每次都發生、但偶爾出現的情況。', example: '精神的なストレスを引き起こすことがあります。', exampleTranslation: '有時候會引起精神上的壓力。' },
+      { pattern: '～といった', explanation: '表示「像～這樣的、諸如此類的」，用於舉出代表性例子。', example: '「既読無視」や自分だけグループから外されるといったことが問題です。', exampleTranslation: '「已讀不回」或自己被踢出群組這樣的事是個問題。' },
     ],
     questions: [
       { question: 'SNSのメリットとして挙げられているのは何ですか？', options: ['情報が常に正確', '遠くの人と気軽に連絡が取れる', '人間関係が簡単になる', '精神的なストレスが減る'], answerIndex: 1 },
@@ -331,6 +361,9 @@ export const presetArticles: Article[] = [
       { pattern: '～ことで', explanation: '表示「透過做～（可以達到某結果）」，說明手段和效果的因果關係。', example: '本を読むことで、語彙力が豊かになります。', exampleTranslation: '透過讀書，詞彙能力變得豐富。' },
       { pattern: '～において', explanation: '表示「在～之中、在～方面」，標示特定的場所、時間或領域。', example: '情報があふれる現代において、集中力は重要です。', exampleTranslation: '在資訊泛濫的現代，專注力很重要。' },
       { pattern: '～ない手はない', explanation: '雙重否定慣用語，「沒有不～的理由、一定要～」，表示強烈的建議或肯定。', example: '読書を習慣にしない手はないでしょう。', exampleTranslation: '一定要養成讀書的習慣吧。' },
+      { pattern: '特に', explanation: '副詞，表示「尤其、特別是」，在眾多事物中特別強調某一個。', example: '特に小説は、共感力や想像力を高める効果があります。', exampleTranslation: '尤其是小說，有提升共感力和想像力的效果。' },
+      { pattern: 'ますます', explanation: '副詞，表示「越來越～」，程度隨時間不斷加深或增強。', example: '集中して考える力は、ますます重要になってきています。', exampleTranslation: '集中思考的能力越來越重要了。' },
+      { pattern: '～てくる（変化の継続）', explanation: '表示某狀態從過去到現在持續發展中，「已逐漸變得～、一直在～」。', example: '集中して考える力は、ますます重要になってきています。', exampleTranslation: '集中思考的能力已逐漸變得越來越重要。' },
     ],
     questions: [
       { question: '本を読む効果として挙げられていないものはどれですか？', options: ['語彙力が豊かになる', '共感力が高まる', '体力がつく', '集中力が鍛えられる'], answerIndex: 2 },
@@ -361,6 +394,9 @@ export const presetArticles: Article[] = [
       { pattern: '～と呼ばれる', explanation: '表示「被稱為～、叫做～」，說明某事物的名稱或稱呼。', example: '「だし」と呼ばれるスープが料理の基本です。', exampleTranslation: '被稱為「出汁」的湯是料理的基礎。' },
       { pattern: '～ごとに', explanation: '表示「每個～、各個～」，表示分別的、逐個的。', example: '季節ごとに異なる料理が楽しめます。', exampleTranslation: '每個季節都能享用不同的料理。' },
       { pattern: '～一方で', explanation: '表示「另一方面」，呈現與前述對比或相反的情況。', example: '世界で人気の一方で、日本人の食生活も変化している。', exampleTranslation: '在世界上受歡迎的另一方面，日本人的飲食生活也在改變。' },
+      { pattern: '～の一つ', explanation: '表示「～之一」，說明某事物是眾多同類中的其中一個，不是唯一。', example: '和食の特徴の一つは「だし」を料理の基本とすることです。', exampleTranslation: '和食的特徵之一，是以「出汁」作為料理的基礎。' },
+      { pattern: '～が好まれる', explanation: '被動形，表示「受到喜愛、被偏好」，說明某事物普遍受歡迎的傾向。', example: '旬の食材を使った料理が好まれます。', exampleTranslation: '使用當季食材的料理受到喜愛。' },
+      { pattern: '人気を集める', explanation: '慣用表現，表示「引起廣泛關注、大受歡迎」，說明某事物吸引了眾多人的目光。', example: '健康的な食事として和食が世界中で人気を集めています。', exampleTranslation: '作為健康飲食，和食在全世界大受歡迎。' },
     ],
     questions: [
       { question: '和食はどのような機関に登録されていますか？', options: ['WHO（世界保健機関）', 'ユネスコの無形文化遺産', 'オリンピック委員会', 'ミシュランガイド'], answerIndex: 1 },
@@ -393,6 +429,8 @@ export const presetArticles: Article[] = [
       { pattern: 'たとえ～ても', explanation: '表示「即使～也…」，前面假設某不利情況，後面表示結果不受影響。', example: 'たとえ雨が降っていても、友達と一緒なら楽しい。', exampleTranslation: '即使在下雨，只要和朋友在一起就很開心。' },
       { pattern: 'せいで／せいか', explanation: '「せいで」表示「因為～的緣故（負面）」；「せいか」帶有不確定語氣，表示「或許是因為～」。', example: '怖さのせいか、感動のせいか、自分でもわからない。', exampleTranslation: '或許是因為恐懼，或許是因為感動，連自己都不清楚。' },
       { pattern: '～ていただけませんか', explanation: '非常禮貌的請求表達，表示「可以請您幫我～嗎？」，比「～てください」更正式客氣。', example: '係員に「一緒に写真を撮っていただけませんか」とお願いした。', exampleTranslation: '請工作人員「可以請您幫我們拍照嗎？」' },
+      { pattern: '～ながら（動作の同時）', explanation: '表示兩個動作同時進行，「一邊～一邊…」，主要動作在後半句。', example: 'ゆきは笑いながら「台湾のより怖い？」と聞いてきた。', exampleTranslation: 'ゆき一邊笑一邊問「比台灣的還可怕嗎？」' },
+      { pattern: '絶対に～ない', explanation: '「絶対に」為強調副詞，加上否定，表示「絕對不～、一定不會～」，語氣強烈確定。', example: '今日は、絶対に忘れられない一日だ。', exampleTranslation: '今天，是絕對不會忘記的一天。' },
     ],
     questions: [
       { question: '私はなぜ最初、富士急に行きたくなかったのですか？', options: ['アトラクションが苦手だから', '雨が降っていたから', 'ゆきが嫌いだから', '富士急が遠すぎるから'], answerIndex: 1 },
@@ -425,6 +463,9 @@ export const presetArticles: Article[] = [
       { pattern: '～に占める', explanation: '表示「在～中佔有（的比例）」，常用於統計或比例描述。', example: '高齢者が総人口に占める割合は約30%です。', exampleTranslation: '高齡者佔總人口的比例約30%。' },
       { pattern: '～だけでなく', explanation: '表示「不只是～，還有…」，用於追加說明。', example: '経済的な影響だけでなく、社会の様々な側面に影響を及ぼしている。', exampleTranslation: '不只是經濟方面的影響，還影響到社會的各個層面。' },
       { pattern: '～を含む', explanation: '表示「包含～、包括～」，說明某事物涵蓋的範圍。', example: '働き方改革や価値観の変化を含む変革が必要だ。', exampleTranslation: '需要包含工作方式改革和價值觀改變的變革。' },
+      { pattern: '～に達する', explanation: '表示「達到～（某數量或程度）」，說明到達了一個特定的水準或界限。', example: '高齢者が総人口に占める割合は約30%に達しています。', exampleTranslation: '高齡者佔總人口的比例已達約30%。' },
+      { pattern: '～と予測される', explanation: '表示「被預測為～、預計～」，用於客觀陳述根據數據或研究得出的推測。', example: '2050年にはさらに増加すると予測されています。', exampleTranslation: '預計到2050年將進一步增加。' },
+      { pattern: '～に対応する', explanation: '表示「應對～、因應～」，針對某問題或課題採取具體行動。', example: '政府はこの課題に対応するため、様々な政策を進めています。', exampleTranslation: '政府為了應對這個課題，正在推進各種政策。' },
     ],
     questions: [
       { question: '65歳以上の高齢者が総人口に占める割合は約何%ですか？', options: ['10%', '20%', '30%', '40%'], answerIndex: 2 },
@@ -455,6 +496,9 @@ export const presetArticles: Article[] = [
       { pattern: '～によれば', explanation: '表示資訊的來源，「根據～的說法、依照～」。', example: 'オックスフォード大学の研究によれば、約47%の職業が自動化される。', exampleTranslation: '根據牛津大學的研究，約47%的職業會被自動化。' },
       { pattern: '～においては', explanation: '表示「在～方面、在～的情況下」，標示特定的領域或條件。', example: 'ルーティン化された業務においては、AIによる代替が進む。', exampleTranslation: '在例行化業務方面，AI替代化正在推進。' },
       { pattern: '～とされている', explanation: '表示「被認為是～、據說是～」，用於描述一般性的認識或評價。', example: 'AIには代替しにくいとされています。', exampleTranslation: '被認為是AI難以替代的。' },
+      { pattern: '～と言われている', explanation: '表示「據說～、一般認為～」，引述普遍流傳的說法，來源不特定。', example: '現在の職業の約47%が自動化されるリスクがあると言われています。', exampleTranslation: '據說現在約47%的職業有被自動化的風險。' },
+      { pattern: '～と予想される', explanation: '表示「被預想為～、預計將～」，對未來狀況進行客觀的推測或展望。', example: 'AIの普及によって新たな職種が生まれることも予想されます。', exampleTranslation: '也預計隨著AI的普及，新的職種將會誕生。' },
+      { pattern: '～ていく', explanation: '表示「持續往～方向進行、將會不斷～」，強調動作從現在延伸到未來。', example: '継続的にスキルをアップデートしていくことが重要です。', exampleTranslation: '持續不斷地更新技能是很重要的。' },
     ],
     questions: [
       { question: 'オックスフォード大学の研究によると、何%の職業が自動化されるリスクがありますか？', options: ['約20%', '約37%', '約47%', '約57%'], answerIndex: 2 },
@@ -486,6 +530,9 @@ export const presetArticles: Article[] = [
       { pattern: '～を補う', explanation: '表示「補足～、彌補～的不足」，描述填補缺口的動作。', example: '不安定性を補うための蓄電技術が必要です。', exampleTranslation: '需要補足不穩定性的蓄電技術。' },
       { pattern: '～と並行して', explanation: '表示「與～並行、同步進行」，說明兩件事同時推進。', example: '技術革新と並行して、政策実施が求められます。', exampleTranslation: '與技術革新並行，也要求政策的實施。' },
       { pattern: '～が求められる', explanation: '表示「被要求～、需要～」，用於描述社會或情況對某事的需求。', example: '段階的な政策実施が求められます。', exampleTranslation: '被要求分階段的政策實施。' },
+      { pattern: 'しかしながら', explanation: '書面語的接續詞，表示「然而、不過」，比「しかし」語氣更正式，前後形成轉折。', example: 'しかしながら、全面的な普及には依然として課題が残ります。', exampleTranslation: '然而，全面普及仍然留有課題。' },
+      { pattern: '依然として', explanation: '副詞，表示「仍然、依然」，說明某問題或狀態持續存在、尚未改變。', example: '再生可能エネルギーには依然として課題が残ります。', exampleTranslation: '再生能源仍然留有課題。' },
+      { pattern: '～も無視できない', explanation: '表示「也不能忽視～」，強調某個同樣重要、不可輕忽的因素。', example: '景観や生態系に与える影響も無視できません。', exampleTranslation: '對景觀和生態系造成的影響也不能忽視。' },
     ],
     questions: [
       { question: '再生可能エネルギーが注目される理由はどれですか？', options: ['コストが高いから', '化石燃料の枯渇と地球温暖化への対応のため', '新興国が開発したから', '政府が義務付けたから'], answerIndex: 1 },
@@ -516,6 +563,9 @@ export const presetArticles: Article[] = [
       { pattern: '～に比べて', explanation: '表示「與～相比、比起～」，用於比較兩者之間的差異。', example: '地方は都市部に比べてアクセスが限られています。', exampleTranslation: '地方比起都市部，取得（資源）的管道較為有限。' },
       { pattern: '～つつある', explanation: '表示「正在逐漸～」，強調某變化或動作正在持續進行中。', example: '環境が整いつつあります。', exampleTranslation: '環境正在逐漸整備。' },
       { pattern: '言うまでもない', explanation: '慣用語，表示「不用說、不言而喻」，強調某事顯而易見。', example: '連携が不可欠であることは言うまでもありません。', exampleTranslation: '合作是不可或缺的，這是不言而喻的。' },
+      { pattern: '～を抱える', explanation: '表示「懷有～、面臨著～（困境或問題）」，帶有負擔或承受的含義。', example: '経済・教育・医療など多岐にわたる問題を抱えています。', exampleTranslation: '面臨著涉及經濟、教育、醫療等多方面的問題。' },
+      { pattern: '～を中心に', explanation: '表示「以～為中心、主要針對～」，說明某行動或現象的主要對象或焦點。', example: '若い世代を中心に都市への人口集中が進みました。', exampleTranslation: '以年輕世代為中心，人口向都市集中的現象加速了。' },
+      { pattern: '～を活かす', explanation: '表示「善用～、活用～」，把某事物的優勢、特點或條件加以有效利用。', example: 'こうした流れを活かし、農村移住を促進する政策が推進されています。', exampleTranslation: '善用這股趨勢，促進農村移住的政策正在推進中。' },
     ],
     questions: [
       { question: '農村地域で進んでいる問題はどれですか？', options: ['急激な人口増加', '著しい高齢化と過疎化', '工場の急増', '外国人移住者の増加'], answerIndex: 1 },
@@ -548,6 +598,9 @@ export const presetArticles: Article[] = [
       { pattern: '～とさえ主張される', explanation: '「さえ」強調程度之極端，「甚至被主張為～」，用於呈現極端觀點。', example: 'その概念を理解できないとさえ主張される。', exampleTranslation: '甚至被主張為無法理解那個概念。' },
       { pattern: '～に先行して', explanation: '表示「在～之前、先於～」，說明在時間或邏輯上的先後關係。', example: '思考は言語に先行して存在しうる。', exampleTranslation: '思考可能先於語言存在。' },
       { pattern: 'いずれにせよ', explanation: '副詞，表示「無論如何、不管怎樣」，用於作出最終結論或轉換觀點。', example: 'いずれにせよ、多言語習得は思考の柔軟性を高める。', exampleTranslation: '無論如何，學習多種語言可以提高思考的靈活性。' },
+      { pattern: '～という立場をとる', explanation: '表示「採取～的立場、持有～的觀點」，用於學術討論中明確說明某理論的立場。', example: '言語的相対論は、思考様式が言語によって規定されるという立場をとる。', exampleTranslation: '語言相對論採取「思考方式由所說的語言所決定」的立場。' },
+      { pattern: '～を可能にする', explanation: '表示「使～成為可能、讓～得以實現」，說明某行動或條件帶來的能力開放。', example: '多様な言語の習得は、異なる認知的枠組みへのアクセスを可能にする。', exampleTranslation: '學習多種語言，使得接觸不同認知框架成為可能。' },
+      { pattern: '～の間で', explanation: '表示「在～之間（進行）」，說明某行為或現象存在於特定群體或範圍之中。', example: '古くから哲学者や言語学者の間で議論が続いてきた。', exampleTranslation: '自古以來，哲學家和語言學家之間一直持續著討論。' },
     ],
     questions: [
       { question: 'サピア＝ウォーフ仮説の主な主張はどれですか？', options: ['思考が言語を作り出す', '人間の思考様式は話す言語によって規定される', '言語と思考は全く関係がない', '多言語を学ぶ必要はない'], answerIndex: 1 },
@@ -578,6 +631,9 @@ export const presetArticles: Article[] = [
       { pattern: '～と同等の', explanation: '表示「與～同等的、和～一樣的（程度）」，用於程度的比較。', example: '慢性的な孤独は喫煙と同等の健康リスクをもたらす。', exampleTranslation: '慢性孤獨帶來與吸菸同等的健康風險。' },
       { pattern: '～の背景には', explanation: '表示「在～的背景下、～的背後原因是」，用於分析深層原因。', example: 'この逆説の背景には構造的問題がある。', exampleTranslation: '這個弔詭現象的背後有結構性問題。' },
       { pattern: '～と同時に', explanation: '表示「與～同時、在做～的同時也做…」，強調兩件事並行進行。', example: 'テクノロジーの活用と同時に、コミュニティの再構築が必要だ。', exampleTranslation: '在活用科技的同時，也需要重建社群。' },
+      { pattern: '～ではあるが', explanation: '表示讓步，「雖然～、儘管～」，承認前提的同時提出相反或出乎意料的事實。', example: '逆説的ではあるが、孤独感を訴える人が増加している。', exampleTranslation: '雖然是矛盾的，但感到孤獨的人正在增加。' },
+      { pattern: 'かつてない', explanation: '表示「前所未有的、史無前例的」，強調某現象或程度達到了從未有過的極端。', example: 'かつてないほど人々がつながっている現代社会。', exampleTranslation: '人們前所未有地緊密相連的現代社會。' },
+      { pattern: '～が指摘される', explanation: '表示「被指出～、有研究指出～」，客觀引述觀察或研究所提出的問題。', example: '認知機能の低下や免疫機能の減弱との相関関係も指摘されている。', exampleTranslation: '也被指出與認知功能下降和免疫功能減弱之間存在相關關係。' },
     ],
     questions: [
       { question: '英国で2018年に設置されたものは何ですか？', options: ['孤独研究所', '孤独担当大臣', '孤独相談センター', '孤独防止委員会'], answerIndex: 1 },
@@ -608,6 +664,9 @@ export const presetArticles: Article[] = [
       { pattern: '～と見なす', explanation: '表示「視為～、認定為～」，說明主觀判斷或定義。', example: '投票制度を集合知の一形態と見なすこともできる。', exampleTranslation: '也可以將投票制度視為集體智慧的一種形態。' },
       { pattern: '～かねない', explanation: '表示「有可能～、說不定會～」，帶有負面的可能性警告。', example: 'エコーチェンバーは民主主義の前提を崩しかねない。', exampleTranslation: '同溫層效應有可能瓦解民主主義的前提。' },
       { pattern: '～が交わされる', explanation: '被動形，表示「（意見等）被交流、進行交換」，強調雙向互動的過程。', example: '多様な意見が対等に交わされる空間が必要だ。', exampleTranslation: '需要多元意見能對等交流的空間。' },
+      { pattern: '～した場合', explanation: '表示「在～的情況下、假如～的話」，設定假設條件，描述該條件下可能發生的結果。', example: 'これらの条件が欠如した場合、集団思考が生じる危険性がある。', exampleTranslation: '假如這些條件欠缺的話，就有產生群體思考的危險。' },
+      { pattern: '～の条件下では', explanation: '表示「在～的條件下」，明示特定前提或情境，再描述其中的結果或現象。', example: '一定の条件下では、市民の集合的判断が専門家の判断を上回ることを示した。', exampleTranslation: '在一定的條件下，顯示出市民的集體判斷可以超越專家的判斷。' },
+      { pattern: '～を保つ', explanation: '表示「維持～、保持～（某狀態不變）」，強調不讓某事物衰退或改變的努力。', example: '民主主義の健全性を保つためには情報リテラシーの向上が必要だ。', exampleTranslation: '為了維持民主主義的健全性，需要提升資訊素養。' },
     ],
     questions: [
       { question: '集合知が機能するために不可欠な三つの条件はどれですか？', options: ['速度・正確性・効率性', '多様性・独立性・分散性', '専門性・客観性・論理性', '透明性・公平性・一貫性'], answerIndex: 1 },
@@ -638,6 +697,9 @@ export const presetArticles: Article[] = [
       { pattern: '～を孕む', explanation: '表示「蘊含～、潛藏著～」，常用於問題、矛盾等負面含義的事物。', example: 'この理論は論理的矛盾を孕んでいる。', exampleTranslation: '這個理論潛藏著邏輯上的矛盾。' },
       { pattern: '～を浮き彫りにする', explanation: '慣用表達，表示「使～凸顯、清楚呈現～」，帶出隱藏的問題或事實。', example: '記憶の選択性という問題を浮き彫りにする。', exampleTranslation: '凸顯出記憶的選擇性這一問題。' },
       { pattern: '～と理解するのが妥当ではないだろうか', explanation: '委婉的主張，「難道不應該理解為～嗎？」，帶有向讀者徵求同意的語氣，是學術文章常見的結論表達。', example: '動態的なプロセスであると理解するのが妥当ではないだろうか。', exampleTranslation: '難道不應該理解為是動態的過程嗎？' },
+      { pattern: '～に当てはめる', explanation: '表示「應用到～、套用到～」，將某個概念或理論移植到另一個情境中加以驗證。', example: 'これを人間の自己同一性に当てはめると、「同じ自分」という問いが浮上する。', exampleTranslation: '將此套用到人類的自我同一性上，便浮現出「同一個自我」的問題。' },
+      { pattern: 'いかに～か', explanation: '表示「多麼～、究竟有多～」，強調程度之深或狀況的程度，帶有感嘆或深入探究的語氣。', example: '記憶がいかに再構成的であるかを明らかにしている。', exampleTranslation: '闡明了記憶究竟是多麼具有再構成性的。' },
+      { pattern: '～を示唆する', explanation: '表示「暗示～、啟示～」，隱約指向某個結論或可能性，而非直接斷言。', example: '記憶は想起するたびに書き換えられている可能性を示唆している。', exampleTranslation: '暗示著記憶每次被想起都有被改寫的可能性。' },
     ],
     questions: [
       { question: 'ジョン・ロックの記憶説はどのような理論ですか？', options: ['身体が自己同一性の基盤である', '社会関係が自己を決定する', '記憶が自己同一性の基盤である', '言語が思考を決定する'], answerIndex: 2 },

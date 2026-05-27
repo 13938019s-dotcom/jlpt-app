@@ -10,8 +10,9 @@ import { ArticleReader } from './components/ArticleReader';
 import { VerbPage } from './components/VerbPage';
 import { VocabularyLibrary } from './components/VocabularyLibrary';
 import { GrammarLibrary } from './components/GrammarLibrary';
+import { GrammarReferencePage } from './components/GrammarReferencePage';
 
-type AppTab = 'reading' | 'verbs' | 'vocab' | 'grammar';
+type AppTab = 'reading' | 'verbs' | 'vocab' | 'grammar' | 'grammarRef';
 const LEVELS: JLPTLevel[] = ['N5', 'N4', 'N3', 'N2', 'N1'];
 
 export default function App() {
@@ -82,10 +83,11 @@ export default function App() {
   }
 
   const tabs: { key: AppTab; label: string; count?: number }[] = [
-    { key: 'reading', label: '閱讀' },
-    { key: 'verbs',   label: '動詞変化' },
-    { key: 'vocab',   label: '單字庫', count: savedVocab.length },
-    { key: 'grammar', label: '文法庫', count: savedGrammar.length },
+    { key: 'reading',    label: '閱讀' },
+    { key: 'verbs',      label: '動詞変化' },
+    { key: 'grammarRef', label: '文法一覧' },
+    { key: 'vocab',      label: '單字庫', count: savedVocab.length },
+    { key: 'grammar',    label: '文法庫', count: savedGrammar.length },
   ];
 
   return (
@@ -130,6 +132,8 @@ export default function App() {
 
       <main className="max-w-4xl mx-auto px-4 py-8">
         {tab === 'verbs' && <VerbPage />}
+
+        {tab === 'grammarRef' && <GrammarReferencePage />}
 
         {tab === 'vocab' && (
           <VocabularyLibrary savedVocab={savedVocab} onRemove={removeVocab} />
